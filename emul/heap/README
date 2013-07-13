@@ -1,0 +1,66 @@
+Heap system
+===========
+
+ Tagged word
+ -----------
+ Tagged word for "interpreted" object.
+ No cool features.
+
+ xxxx xxxx xxx0 :: Fixnum
+                   (pfixnum? w)
+                   (pfixnum-value w)
+                   (pfixnum-word f)
+ xxxx xxxx x001 :: Heap object (GC traversed)
+ xxxx xxxx x011 :: Heap object (Atomic)
+                   (heap-object-word w) => word
+                   (heap-object-word/atomic w) => word
+                   (heap-object? w)
+                   (heap-object-value w) => ptr  :: unbiased
+ xxxx xxxx x101 :: RESERVED (for weak reference)
+ NNNN NNNN 0111 :: Zone 0 (N)
+                    0 : RESERVED
+                    1 : True
+                    2 : False
+                    3 : '()
+                    4 : undefined
+                    5 : unspecified
+                    6 : eof-object
+                   (zone0-word N) => word
+                   (zone0? w)
+                   (zone0-value w) => N
+ VVVV NNNN 1111 :: Zone 1 (N,V)
+                    0 : RESERVED
+                    1 : Char
+                   (zone1-word N V) => word
+                   (zone1? w)
+                   (zone1-values w) => (N V)
+ 
+ Heap object header
+ ------------------
+ xxxx xxxx xxxx xne0 :: Pointer to class object(x) - RESERVED
+ ____ ____ ____ _ne0 :: RESERVED (for Huge object)
+ ____ ____ ____ _011 :: Atomic
+ ____ ____ ____ _111 :: Vector object (GC travered)
+ VVVV TTTT TTTT 1011 :: Buffer type (T)
+                        V - Size / Size residue
+                    0 : RESERVED
+                    1 : Bytestring
+                    2 : Symbol (UTF-8)
+                    3 : String (ASCII)
+                    (buffer-word T V) => word
+                    (buffer? w)
+                    (buffer-values w) => (T V)
+
+ VVVV TTTT TTTT 1111 :: Vector type(T)
+                        V - Size / Size residue
+                    0 : RESERVED
+                    1 : Pair
+                    2 : Vector
+                    3 : Alternative-vector
+                    4 : Closure
+                    (pvector-word T V) => word
+                    (pvector? w)
+                    (pvector-values w) => (T V)
+                    
+
+

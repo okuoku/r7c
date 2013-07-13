@@ -1,0 +1,73 @@
+Emulated VM
+===========
+
+Internal (emul vm private)
+--------------------------
+ (word SCHEME-OBJECT) => word
+ (unword word) => integer/flonum
+
+Constructs (emul vm core)
+-------------------------
+ define-syntax
+ syntax-rules
+ define (core)
+ let (core)
+ receive ::: Receive syntax in srfi-8
+ values
+ if
+ (imm SCHEME-VALUE) => word ::: same as word
+
+Heap management (emul vm heap)
+------------------------------
+ cell-wordsize => wordsize
+
+ (cell X) => word
+ acquire X words of cell
+
+ (cell-read CELL idx) => word
+ (cell-write! CELL idx word)
+
+ (cell-size CELL) => word
+
+Arithmetics (emul vm arith)
+---------------------------
+NB: Always unsigned
+ 
+ (add word word) => word
+ (sub word word) => word
+ (mul word word) => word
+ (div word word) => word
+ (div+mod wod word)  => (div mod)
+
+ (bior word word) => word
+ (band word word) => word
+ (bxor word word) => word
+ (bnot word) => word
+ (s<< word word) => word
+ (s>> word word) => word
+ (u<< word word) => word
+ (u>> word word) => word
+
+ (fadd word word) => word
+ (fsub word word) => word
+ (fmul word word) => word
+ (fdiv word word) => word
+
+ (eq word word) => bool
+ (i< word word) => bool
+ (i> word word) => bool
+ (i<= word word) => bool
+ (i>= word word) => bool
+ (f< word word) => bool
+ (f> word word) => bool
+ (f<= word word) => bool
+ (f>= word word) => bool
+ 
+IO (emul vm io)
+---------------
+NB: Not in core
+
+ (stdin) => word
+ (stdout) => word
+ (stderr) => word
+

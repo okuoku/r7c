@@ -1,0 +1,99 @@
+Base types
+==========
+
+ Booleans "6.3. Booleans"
+ ------------------------
+  Zone0-1 = true
+  Zone1-2 = false
+
+ R7RS:
+  (not x)
+  (boolean? x)
+ CORE:
+  (boolean=?/2 x y)
+
+ Pairs "6.4. Pairs and lists"
+ ----------------------------
+  Zone0-3 = '()
+  Vector-1 = pair
+
+ R7RS:
+  (null? x)
+  (pair? x)
+  (cons x y)
+  (car x y)
+  (cdr x y)
+  (set-car! x y)
+  (set-cdr! x y)
+
+ Symbols "6.5. Symbols"
+ ----------------------
+  Buffer-2 = symbols
+
+ R7RS:
+  (symbol? x)
+  (symbol->string x)
+  (string->symbol x)
+ CORE:
+  (string=?/2 x y)
+
+ Characters "6.6. Characters"
+ ----------------------------
+  Zone1-1 = Char
+
+ R7RS:
+  (char? x)
+  (char->integer x)
+  (integer->char x)
+
+ CORE:
+  (char=?/2 x y)
+  (char<?/2 x y)
+  (char>?/2 x y)
+  (char<=?/2 x y)
+  (char>=?/2 x y)
+
+ Strings "6.7. Strings"
+ ----------------------
+  Buffer-3 = string
+
+ R7RS:
+  (string? x)
+  (string-length x)
+  (string-ref x n)
+  (string-set! x n c)
+  (string-copy x)
+
+ CORE:
+  (make-string/default k c)
+
+ Vectors "6.8. Vectors"
+ ----------------------
+  Vector-2 = vector
+ 
+ R7RS:
+  (vector? x)
+  (vector-length x)
+  (vector-ref x n)
+  (vector-set! x n)
+  (vector-copy x)
+
+ CORE:
+  (make-vector/default k d)
+
+ Bytevectors "6.9. Bytevectors"
+ ------------------------------
+  Buffer-1 = bytevector
+
+ R7RS:
+  (bytevector? bv)
+  (bytevector-length bv)
+  (bytevector-u8-ref bv i)
+  (bytevector-u8-set! bv i n)
+  (bytevector-copy bv)
+  (utf8->string bv)
+  (string->utf8 s)
+
+ CORE:
+  (make-bytevector/default k d)
+

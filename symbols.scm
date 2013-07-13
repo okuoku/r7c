@@ -111,7 +111,6 @@
 
 ("6.4. Pairs and lists"
  pair? cons car cdr set-car! set-cdr! caar cadr cdar cddr
- ;; Paste cxr here
 caaaar caaadr
 caaar caadar
 caaddr caadr

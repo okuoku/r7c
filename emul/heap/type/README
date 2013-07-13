@@ -7,10 +7,31 @@ Base types
   Zone1-2 = false
 
  R7RS:
-  (not x)
-  (boolean? x)
+  (not obj)
+  (boolean? obj)
  CORE:
-  (boolean=?/2 x y)
+  (boolean=?/2 boolean1 boolean2)
+  (true)
+  (false)
+ VMIF:
+  (%if obj a b) ::: syntax
+  (boolean w0) 
+
+ Fixnums(Based on R6RS)
+ ----------------------
+
+ CORE:
+  (fixnum? x)
+  (fx+ x y)
+  (fx- x y)
+  (fx<? x y)
+  (fx>? x y)
+  (fx<=? x y)
+  (fx>=? x y)
+  (fx=? x y)
+ VMIF:
+  (fixnum w)
+  (fixnum-value w)
 
  Pairs "6.4. Pairs and lists"
  ----------------------------
@@ -18,82 +39,86 @@ Base types
   Vector-1 = pair
 
  R7RS:
-  (null? x)
-  (pair? x)
-  (cons x y)
-  (car x y)
-  (cdr x y)
-  (set-car! x y)
-  (set-cdr! x y)
-
- Symbols "6.5. Symbols"
- ----------------------
-  Buffer-2 = symbols
-
- R7RS:
-  (symbol? x)
-  (symbol->string x)
-  (string->symbol x)
- CORE:
-  (string=?/2 x y)
+  (pair? obj)
+  (cons obj1 obj2)
+  (car pair)
+  (cdr pair)
+  (set-car! pair obj)
+  (set-cdr! pair obj)
+  (null? obj)
+ VMIF:
+  (null)
 
  Characters "6.6. Characters"
  ----------------------------
   Zone1-1 = Char
 
  R7RS:
-  (char? x)
-  (char->integer x)
-  (integer->char x)
+  (char? obj)
+  (char->integer char)
+  (integer->char n)
 
  CORE:
-  (char=?/2 x y)
-  (char<?/2 x y)
-  (char>?/2 x y)
-  (char<=?/2 x y)
-  (char>=?/2 x y)
-
- Strings "6.7. Strings"
- ----------------------
-  Buffer-3 = string
-
- R7RS:
-  (string? x)
-  (string-length x)
-  (string-ref x n)
-  (string-set! x n c)
-  (string-copy x)
-
- CORE:
-  (make-string/default k c)
+  (char=?/2 char1 char2)
+  (char<?/2 char1 char2)
+  (char>?/2 char1 char2)
+  (char<=?/2 char1 char2)
+  (char>=?/2 char1 char2)
 
  Vectors "6.8. Vectors"
  ----------------------
   Vector-2 = vector
  
  R7RS:
-  (vector? x)
-  (vector-length x)
-  (vector-ref x n)
-  (vector-set! x n)
-  (vector-copy x)
+  (vector? obj)
+  (vector-length vector)
+  (vector-ref vector k)
+  (vector-set! vector k obj)
 
  CORE:
-  (make-vector/default k d)
+  (make-vector/default k fill)
+  (vector-copy/1 vector)
+
+ Strings "6.7. Strings"
+ ----------------------
+  Buffer-3 = string
+
+ R7RS:
+  (string? obj)
+  (string-length string)
+  (string-ref string k)
+  (string-set! string k char)
+
+ CORE:
+  (make-string/default k char)
+  (string-copy/1 string)
+
+
+ Symbols "6.5. Symbols"
+ ----------------------
+  Buffer-2 = symbols
+
+ R7RS:
+  (symbol? obj)
+  (symbol->string symbol)
+  (string->symbol string)
+ CORE:
+  (symbol=?/2 symbol1 symbol2)
+
 
  Bytevectors "6.9. Bytevectors"
  ------------------------------
   Buffer-1 = bytevector
 
  R7RS:
-  (bytevector? bv)
-  (bytevector-length bv)
-  (bytevector-u8-ref bv i)
-  (bytevector-u8-set! bv i n)
-  (bytevector-copy bv)
-  (utf8->string bv)
-  (string->utf8 s)
+  (bytevector? obj)
+  (bytevector-length bytevector)
+  (bytevector-u8-ref bytevector k)
+  (bytevector-u8-set! bytevector k byte)
 
  CORE:
-  (make-bytevector/default k d)
+  (make-bytevector/default k byte)
+  (bytevector-copy/1 bytevector)
+  (utf8->string/1 bytevector)
+  (string->utf8/1 string)
 

@@ -45,8 +45,6 @@ Heap system
                         V - Size / Size residue
                     0 : RESERVED
                     1 : Bytestring
-                    2 : Symbol (UTF-8)
-                    3 : String (ASCII)
                     (buffer-word T V) => word
                     (buffer? w)
                     (buffer-values w) => (T V)
@@ -58,9 +56,25 @@ Heap system
                     2 : Vector
                     3 : Alternative-vector
                     4 : Closure
+                    5 : Symbol (Char32)
+                    6 : String (Char32)
                     (pvector-word T V) => word
                     (pvector? w)
                     (pvector-values w) => (T V)
-                    
 
+ Heap object common
+ ------------------
+   (new-heap-vector type size)
+   (new-heap-buffer type bytesize)
+   
+   (heap-vector-type? w type)
+   (heap-buffer-type? w type)
+
+   (heap-vector-size w)
+   (heap-buffer-size w)
+
+   (heap-vector-read w idx)
+   (heap-vector-write! w idx x)
+
+   (heap-cell w)
 

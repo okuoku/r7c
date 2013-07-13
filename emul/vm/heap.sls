@@ -1,5 +1,6 @@
 (library (emul vm heap)
          (export
+           heap-cell
            cell-wordsize
            cell
            cell-read
@@ -16,7 +17,7 @@
     (vector-ec (: i size) (integer->pointer 0))))
 (define (uncell x)
   (define obj (pointer->object x))
-  (unless (list? x)
+  (unless (vector? x)
     (assertion-violation 'uncell
                          "Invalid object for uncell"
                          obj))

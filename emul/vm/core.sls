@@ -38,7 +38,8 @@
            f<
            f>
            f<=
-           f>=)
+           f>=
+           err)
          (import (except (rnrs) div div+mod if)
                  (srfi :8)
                  (rename (rnrs) (if rnrs-if))
@@ -54,5 +55,13 @@
   (syntax-rules ()
     ((_ q a b)
      (rnrs-if (bool (unword q)) a b))))
+
+(define-syntax err
+  (syntax-rules ()
+    ((_ obj ...)
+     (assertion-violation
+       'vm
+       "error"
+       err))))
 
 )

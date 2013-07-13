@@ -2,6 +2,9 @@
 (library (r7c-impl syntax core)
          (export
            ;;
+           quote
+
+           ;;
            lambda
 
            ;; 

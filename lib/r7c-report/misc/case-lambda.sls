@@ -1,5 +1,5 @@
 (library (r7c-report misc case-lambda)
-         (export guard else =>)
+         (export case-lambda)
          (import (r7c-impl syntax core)
                  (r7c-impl runtime core)
                  (r7c-impl runtime pairs)

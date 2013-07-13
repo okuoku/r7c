@@ -11,7 +11,8 @@
  and or when unless
  cond-expand)
 ("4.2.2. Binding constructs"
- let let* letrec letec*)
+ let let* letrec letrec*
+ let-values let*-values)
 ("4.2.3. Sequencing" begin)
 
 ("4.2.4. Iteration" do) ;; let
@@ -60,8 +61,10 @@
  nan?
  = < > <= >=
  zero? positive? negative? odd? even?
+ max min
  + *
  - /
+ abs
  floor/
  floor-quotient
  floor-remainder
@@ -133,7 +136,7 @@ cddddr cdddr
  char-ci=? char-ci<? char-ci>? char-ci<=? char-ci>=?
  char-alphabetic? char-numeric? char-whitespace? char-upper-case?
  char-lower-case?
- digit-value?
+ digit-value
  char->integer
  integer->char
  char-upcase char-downcase char-foldcase)
@@ -145,9 +148,15 @@ cddddr cdddr
  string>? string-ci>?
  string<=? string<=?
  string>=? string>=?
+ string-ci<=? string-ci<=?
+ string-ci>=? string-ci>=?
+ string-upcase
+ string-downcase
+ string-foldcase
  substring
  string-append
  string->list
+ list->string
  string-copy
  string-copy!
  string-fill!)
@@ -157,9 +166,9 @@ cddddr cdddr
  vector vector-length vector-ref vector-set! 
  vector->list list->vector
  vector->string string->vector
- vector->copy vector-copy!
- vector->append
- vector->fill!)
+ vector-copy vector-copy!
+ vector-append
+ vector-fill!)
 
 ("6.9. Bytevectors"
  bytevector?
@@ -190,6 +199,7 @@ cddddr cdddr
  dynamic-wind)
 
 ("6.11. Exceptions"
+ with-exception-handler
  raise
  raise-continuable
  error
@@ -446,7 +456,7 @@ with-input-from-file with-output-to-file
 
 ((scheme inexact)
 cos asin
-atan cos
+atan acos
 exp finite?
 infinite? log
 nan? sin
@@ -473,6 +483,7 @@ get-environment-variables
 
 ((scheme write) display write write-shared write-simple)
 
+#|
 ((scheme r5rs)
 * +
 - /
@@ -585,3 +596,4 @@ vector? with-input-from-file
 with-output-to-file write
 write-char zero?
  )
+|#

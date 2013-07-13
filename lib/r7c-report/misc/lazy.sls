@@ -1,5 +1,5 @@
 (library (r7c-report misc lazy)
-         (export delay-force make-promise delay force)
+         (export delay-force make-promise delay force promise?)
          (import (r7c-impl syntax core)
                  (r7c-impl syntax pairs)
                  (r7c-impl syntax unless)
@@ -40,4 +40,6 @@
     (set-cdr! (car old) (promise-value new))
     (set-car! new (car old))))
 
+;; promise? implementation is not included 
+(define (promise? x) (pair? x))
 )

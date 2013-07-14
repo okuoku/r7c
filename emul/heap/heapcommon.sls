@@ -17,7 +17,7 @@
 (define false (imm 0))
 
 (define (checkptr w)
-  (if (eq 0 (band (imm #x111) w))
+  (if (eq (imm 0) (band (imm #b111) w))
     (values) ;; OK
     (err "Invalid pointer")))
 

@@ -18,8 +18,8 @@
 (define (fixnum x) (pfixnum-word x))
 (define (fixnum-value x)
   (%if (fixnum? x)
-       (err "fixnum required")
-       (pfixnum-value x)))
+       (pfixnum-value x)
+       (err "fixnum required")))
 
 (define-syntax def
   (syntax-rules ()

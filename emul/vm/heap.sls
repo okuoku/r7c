@@ -16,11 +16,14 @@
 
 (define (cell x)
   (define size (unword x))
-  (object->pointer
-    (vector-ec (: i size) (integer->pointer 0))))
+  (define ptr
+    (object->pointer
+      (vector-ec (: i size) (integer->pointer 0))))
+  ;(write (list 'new-cell: ptr))(newline)
+  ptr)
 (define (uncell x)
   (define obj (pointer->object x))
-  (unless (vector? x)
+  (unless (vector? obj)
     (assertion-violation 'uncell
                          "Invalid object for uncell"
                          obj))
@@ -28,12 +31,12 @@
 
 (define (cell-read x y)
   (define cell (uncell x))
-  (define idx (unword x))
+  (define idx (unword y))
   (vector-ref cell idx))
 
 (define (cell-write! x y value)
   (define cell (uncell x))
-  (define idx (unword x))
+  (define idx (unword y))
   (vector-set! cell idx value))
 
 (define (calc-u8offsets byteidx)
@@ -52,13 +55,13 @@
 
 (define (cell-u8-read x y)
   (define cell (uncell x))
-  (define byte-idx (unword x))
+  (define byte-idx (unword y))
   (receive (w b) (u8-read-word+byte cell byte-idx)
     (word b)))
 
 (define (cell-u8-write! x y z)
   (define cell (uncell x))
-  (define byte-idx (unword x))
+  (define byte-idx (unword y))
   (define a (unword z))
   (unless (and (<= a 255) (>= a 0))
     (assertion-violation 'cell-u8-write

@@ -6,8 +6,8 @@
          (import (emul vm core)
                  (emul heap tagwords))
 
-(define (true) (zone0-word 1))
-(define (false) (zone0-word 2))
+(define (true) (zone0-word (imm 1)))
+(define (false) (zone0-word (imm 2)))
 
 (define (boolean? obj)
   (if (zone0? obj)
@@ -26,7 +26,7 @@
 
 (define (%if-check obj)
   (if (zone0? obj)
-    (if (eq (zone0-value obj) 2)
+    (if (eq (zone0-value obj) (imm 2))
       (imm 0)
       (imm 1))
     (imm 1)))

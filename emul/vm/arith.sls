@@ -26,6 +26,8 @@
        (set! v (unword v))
        ...
        (let ((e (let () code ...)))
+         ;(write (list 'nam v ... '=> e))
+         ;(newline)
          (xword e))))))
 
 (define (neg i) ;; Calc 2 complement
@@ -57,7 +59,7 @@
     (else
       (let ((mask (bitwise-arithmetic-shift-left 
                     -1
-                    (+ 1 (bitwise-first-bit-set i)))))
+                    (+ 1 (bitwise-length i)))))
         (bitwise-ior mask i)))))
 
 (def bior (x y) (bitwise-ior x y))

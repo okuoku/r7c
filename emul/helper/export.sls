@@ -12,11 +12,19 @@
                  (prefix (emul heap type vectors) target-) )
          
         
-(define (%b proc obj)
+(define (%%b proc obj)
   ;; Convert target bool predicate into host bool
   (target-%if (proc obj)
               #t
               #f))
+(define-syntax %b
+  (syntax-rules ()
+    ((_ proc obj)
+     (begin
+       ;(write (list 'proc ': obj))(newline)
+       (let ((b (%%b proc obj)))
+         ;(write b)(newline)
+         b)))))
 
 (define (import target-sexp)
   (cond
@@ -26,7 +34,7 @@
                  #f))
     ((%b target-char? target-sexp)
      (integer->char 
-       (private-unword
+       (import
          (target-char->integer target-sexp))))
     ((%b target-fixnum? target-sexp)
      (private-unword (target-fixnum-value target-sexp)))
@@ -37,11 +45,12 @@
     ((%b target-string? target-sexp)
      (receive (p proc) (open-string-output-port)
        (do-ec (: i (import (target-string-length target-sexp)))
-              (put-char p (target-string-ref target-sexp (export i))))
+              (put-char p (import (target-string-ref target-sexp (export i)))))
        (proc)))
     ((%b target-vector? target-sexp)
      (list->vector (list-ec (: i (import (target-vector-length target-sexp)))
-                            (target-vector-ref target-sexp (export i)))))
+                            (import 
+                              (target-vector-ref target-sexp (export i))))))
     (else
       (assertion-violation 'import
                            "Unkown datum"
@@ -64,10 +73,17 @@
                   (export (cdr sexp))))
     ((string? sexp)
      (let* ((len (string-length sexp))
-            (nex (target-make-string/undefined len)))
+            (nex (target-make-string/undefined (export len))))
        (do-ec (: i len)
               (let ((c (string-ref sexp i)))
                 (target-string-set! nex (export i) (export c)) ))
+       nex))
+    ((vector? sexp)
+     (let* ((len (vector-length sexp))
+            (nex (target-make-vector/undefined (export len))))
+       (do-ec (: i len)
+              (let ((e (vector-ref sexp i)))
+                (target-vector-set! nex (export i) (export e))))
        nex))
     (else
       (assertion-violation 'export

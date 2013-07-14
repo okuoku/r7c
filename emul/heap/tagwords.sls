@@ -62,7 +62,7 @@
        (imm #b0111)))
 (define (zone0? w)
   (eq (band (imm #b1111) w) 
-      #b0111))
+      (imm #b0111)))
 (define (zone0-value w)
   (s>> w (imm 4)))
 
@@ -77,12 +77,12 @@
       (imm #b1111)))
 (define (zone1-values w)
   (let ((v (s>> w (imm 8)))
-        (n (band #b1111 (s>> w (imm 4)))))
-    (values v n)))
+        (n (band (imm #b1111) (s>> w (imm 4)))))
+    (values n v)))
 
 ;; BUFFER
 (define (buffer-word T V)
-  (let ((t (s<< (band T (imm #b11111111)) (imm 8)))
+  (let ((t (s<< (band T (imm #b11111111)) (imm 4)))
         (v (s<< V (imm 12))))
     (bior (bior t v) (imm #b1011))))
 (define (buffer? w)
@@ -91,12 +91,12 @@
       (imm #b1011)))
 (define (buffer-values w)
   (let ((v (s>> w (imm 12)))
-        (n (band #b11111111 (s>> w (imm 8)))))
-    (values v n)))
+        (n (band #b11111111 (s>> w (imm 4)))))
+    (values n v)))
 
 ;; PVECTOR
 (define (pvector-word T V)
-  (let ((t (s<< (band T (imm #b11111111)) (imm 8)))
+  (let ((t (s<< (band T (imm #b11111111)) (imm 4)))
         (v (s<< V (imm 12))))
     (bior (bior t v) (imm #b1111))))
 (define (pvector? w)
@@ -105,7 +105,7 @@
       (imm #b1111)))
 (define (pvector-values w)
   (let ((v (s>> w (imm 12)))
-        (n (band #b11111111 (s>> w (imm 8)))))
-    (values v n)))
+        (n (band (imm #b11111111) (s>> w (imm 4)))))
+    (values n v)))
 
 )

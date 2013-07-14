@@ -7,6 +7,7 @@
            heap-cell
            heap-vector-read
            heap-vector-write!
+           heap-vector-copy
            )
          (import (emul heap tagwords)
                  (emul vm core))
@@ -16,8 +17,15 @@
 
 (define (checkptr w)
   (if (eq 0 (band (imm #x111) w))
-    true ;; OK
+    (values) ;; OK
     (err "Invalid pointer")))
+
+(define (new-heap-vector/cell cell type)
+  (let ((cellsize (cell-size cell))) 
+    (let ((w (pvector-word type cellsize)))
+      (checkptr cell)
+      (cell-write! cell (imm 0) w)
+      (heap-object-word cell))))
 
 (define (new-heap-vector type size)
   (let ((newsize (add (imm 1) size)))
@@ -30,6 +38,16 @@
 (define (heap-cell w)
   (if (heap-object? w)
     (heap-object-value w)
+    (err "Heap object required")))
+
+(define (heap-vector-type w)
+  (if (heap-object? w)
+    (let ((c (heap-cell w)))
+      (let ((w (cell-read c (imm 0))))
+        (if (pvector? w)
+          (receive (T V) (pvector-values w)
+            T)
+          (err "Invalid heap header"))))
     (err "Heap object required")))
 
 (define (heap-vector-type? w type)
@@ -46,5 +64,9 @@
   (cell-read (heap-cell w) (add (imm 1) idx)))
 (define (heap-vector-write! w idx obj)
   (cell-write! (heap-cell w) (add (imm 1) idx) obj))
+(define (heap-vector-copy w)
+  (let ((n (cell-copy (heap-cell w)))
+        (t (heap-vector-type w)))
+    (new-heap-vector/cell n t)))
 
 )

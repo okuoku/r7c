@@ -14,6 +14,9 @@
            cell-read
            cell-write!
            cell-size
+           cell-copy
+           cell-u8-read
+           cell-u8-write!
            add
            sub
            mul

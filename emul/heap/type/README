@@ -76,12 +76,12 @@ Base types
   (vector-set! vector k obj)
 
  CORE:
-  (make-vector/default k fill)
+  (make-vector/undefined k)
   (vector-copy/1 vector)
 
  Strings "6.7. Strings"
  ----------------------
-  Buffer-3 = string
+  Vector-6 = string
 
  R7RS:
   (string? obj)
@@ -90,20 +90,20 @@ Base types
   (string-set! string k char)
 
  CORE:
-  (make-string/default k char)
+  (make-string/undefined k)
   (string-copy/1 string)
 
 
  Symbols "6.5. Symbols"
  ----------------------
-  Buffer-2 = symbols
+  Vector-5 = symbols
 
  R7RS:
   (symbol? obj)
   (symbol->string symbol)
-  (string->symbol string)
  CORE:
   (symbol=?/2 symbol1 symbol2)
+  (string->symbol/uninterned string)
 
 
  Bytevectors "6.9. Bytevectors"
@@ -117,8 +117,6 @@ Base types
   (bytevector-u8-set! bytevector k byte)
 
  CORE:
-  (make-bytevector/default k byte)
+  (make-bytevector/undefined k byte)
   (bytevector-copy/1 bytevector)
-  (utf8->string/1 bytevector)
-  (string->utf8/1 string)
 

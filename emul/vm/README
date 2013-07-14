@@ -26,8 +26,11 @@ Heap management (emul vm heap)
 
  (cell-read CELL idx) => word
  (cell-write! CELL idx word)
+ (cell-u8-read CELL idx) => word
+ (cell-u8-write! CELL idx b)
 
  (cell-size CELL) => word
+ (cell-copy CELL) => word
 
 Arithmetics (emul vm arith)
 ---------------------------

@@ -23,15 +23,6 @@
     (true)
     (false)))
 
-(define (boolean=?/2 boolean1 boolean2)
-  (%if (boolean? boolean1)
-       (%if (boolean? boolean2)
-            (boolean 
-              (eq (zone0-value boolean1)
-                  (zone1-value boolean2)))
-            (err "boolean2"))
-       (err "boolean1")))
-
 (define-syntax %if
   (syntax-rules ()
     ((_ f a b)
@@ -40,6 +31,15 @@
          (if (eq (zone0-value obj) 2)
            b
            a))))))
+
+(define (boolean=?/2 boolean1 boolean2)
+  (%if (boolean? boolean1)
+       (%if (boolean? boolean2)
+            (boolean 
+              (eq (zone0-value boolean1)
+                  (zone1-value boolean2)))
+            (err "boolean2"))
+       (err "boolean1")))
 
 (define (not obj)
   (%if obj (false) (true)))

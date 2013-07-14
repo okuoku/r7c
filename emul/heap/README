@@ -75,6 +75,7 @@ Heap system
 
    (heap-vector-read w idx)
    (heap-vector-write! w idx x)
+   (heap-vector-copy w)
 
    (heap-cell w)
 

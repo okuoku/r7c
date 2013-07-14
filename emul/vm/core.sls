@@ -65,6 +65,6 @@
      (assertion-violation
        'vm
        "error"
-       err))))
+       '(obj ...)))))
 
 )

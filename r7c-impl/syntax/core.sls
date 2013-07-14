@@ -26,5 +26,7 @@
            ;; Binding constructs
            (rename (let let/core))
            )
-         (import (scheme))
+         (import (except (emul vm core) if)
+                 (emul syntax aux)
+                 )
 )

@@ -32,6 +32,6 @@
 ;;; TESTS
 
 (for-each (^e (test-equal e (try e))) test-basic)
-;(test-equal test-basic (try test-basic))
+(test-equal test-basic (try test-basic))
 
 (test-results)

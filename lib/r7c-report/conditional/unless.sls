@@ -1,7 +1,7 @@
 (library (r7c-report conditional unless)
          (export unless)
          (import (r7c-impl syntax core)
-                 (only (r7c-impl runtime conditional) not))
+                 (only (r7c-impl runtime core) not))
 
 
 ;; Took from 7.3 Derived expression types

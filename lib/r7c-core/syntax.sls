@@ -6,5 +6,7 @@
                  begin
                  if
                  syntax-rules
-                 define-syntax)
+                 define-syntax
+                 let-syntax
+                 letrec-syntax)
          (import (r7c-impl syntax core)))

@@ -22,11 +22,12 @@
            ;;
            syntax-rules
            define-syntax
+           let-syntax
+           letrec-syntax
 
            ;; Binding constructs
-           (rename (let let/core))
+           let/core
            )
          (import (except (emul vm core) if)
-                 (emul syntax aux)
-                 )
+                 (emul scheme syntax core))
 )

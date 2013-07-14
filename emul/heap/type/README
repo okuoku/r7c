@@ -120,3 +120,11 @@ Base types
   (make-bytevector/undefined k byte)
   (bytevector-copy/1 bytevector)
 
+Specials
+========
+
+ Zone0-5 = unspecified
+
+ CORE:
+  (unspecified? obj)
+  (unspecified)

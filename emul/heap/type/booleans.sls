@@ -1,7 +1,8 @@
 (library (emul heap type booleans)
          (export not boolean? boolean=?/2
                  true false
-                 %if eq-boolean)
+                 boolean
+                 %if)
          (import (emul vm core)
                  (emul heap tagwords))
 
@@ -23,21 +24,27 @@
     (true)
     (false)))
 
+(define (%if-check obj)
+  (if (zone0? obj)
+    (if (eq (zone0-value obj) 2)
+      (imm 0)
+      (imm 1))
+    (imm 1)))
+
 (define-syntax %if
   (syntax-rules ()
     ((_ f a b)
      (let ((obj f))
-       (if (zone0? obj)
-         (if (eq (zone0-value obj) 2)
-           b
-           a))))))
+       (if (eq (imm 0) (%if-check obj))
+         b
+         a)))))
 
 (define (boolean=?/2 boolean1 boolean2)
   (%if (boolean? boolean1)
        (%if (boolean? boolean2)
             (boolean 
               (eq (zone0-value boolean1)
-                  (zone1-value boolean2)))
+                  (zone0-value boolean2)))
             (err "boolean2"))
        (err "boolean1")))
 

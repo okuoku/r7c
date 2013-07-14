@@ -1,6 +1,5 @@
 (library (emul vm heap)
          (export
-           heap-cell
            cell-copy
            cell-u8-read
            cell-u8-write!
@@ -69,7 +68,7 @@
     (receive (n m) (u8-read-word+byte cell byte-idx)
       (let* ((mask (bitwise-not (bitwise-arithmetic-shift-left #xff (* 8 b))))
              (i (bitwise-arithmetic-shift-left a (* 8 b)))
-             (r (bitwise-or (bitwise-and mask w) i)))
+             (r (bitwise-ior (bitwise-and mask w) i)))
         (cell-write! x y r)))))
 
 (define (cell-size x)

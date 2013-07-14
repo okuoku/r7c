@@ -34,14 +34,14 @@
 (define (pfixnum-value w)
   (s>> w (imm 1)))
 
-(define (pfixnum-word v)
+(define (pfixnum-word w)
   (s<< w (imm 1)))
 
 ;; HEAP-OBJECT
 (define (heap-object-word/core w h)
-  (bor w h))
+  (bior w h))
 
-(define (heap-object-word/atmic w)
+(define (heap-object-word/atomic w)
   (heap-object-word/core w (imm #b011)))
 (define (heap-object-word w)
   (heap-object-word/core w (imm #b001)))
@@ -58,7 +58,7 @@
 
 ;; ZONE0
 (define (zone0-word N)
-  (bor (s<< N (imm 4))
+  (bior (s<< N (imm 4))
        (imm #b0111)))
 (define (zone0? w)
   (eq (band (imm #b1111) w) 
@@ -70,7 +70,7 @@
 (define (zone1-word N V)
   (let ((n (s<< (band (imm #b1111) N) (imm 4)))
         (v (s<< V (imm 8))))
-    (bor (bor n v) (imm #b1111))))
+    (bior (bior n v) (imm #b1111))))
 (define (zone1? w)
   (eq (band (imm #b1111)
             w)
@@ -84,7 +84,7 @@
 (define (buffer-word T V)
   (let ((t (s<< (band T (imm #b11111111)) (imm 8)))
         (v (s<< V (imm 12))))
-    (bor (bor t v) (imm #b1011))))
+    (bior (bior t v) (imm #b1011))))
 (define (buffer? w)
   (eq (band (imm #b1111)
             w)
@@ -98,7 +98,7 @@
 (define (pvector-word T V)
   (let ((t (s<< (band T (imm #b11111111)) (imm 8)))
         (v (s<< V (imm 12))))
-    (bor (bor t v) (imm #b1111))))
+    (bior (bior t v) (imm #b1111))))
 (define (pvector? w)
   (eq (band (imm #b1111)
             w)

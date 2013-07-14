@@ -22,7 +22,7 @@
       (imm 0))))
 (define (char->integer char)
   (%if (char? char)
-       (receive (N V) (zone1-values obj)
+       (receive (N V) (zone1-values char)
          (fixnum V))
        (err "Char required")))
 (define (integer->char n)

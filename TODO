@@ -1,0 +1,12 @@
+
+16 bytes fixed cell
+-------------------
+
+ - Utilize 'size residue' on vector/buffer types
+ - Implement size cache
+
+Copy on Write vector/buffer
+---------------------------
+
+ - Reserve bits?
+

@@ -8,6 +8,7 @@
            heap-vector-read
            heap-vector-write!
            heap-vector-copy
+           heap-vector-size
            )
          (import (emul heap tagwords)
                  (emul vm core))
@@ -39,6 +40,10 @@
   (if (heap-object? w)
     (heap-object-value w)
     (err "Heap object required")))
+
+(define (heap-vector-size w)
+  (let ((c (heap-cell w)))
+    (sub (cell-size c) (imm 1))))
 
 (define (heap-vector-type w)
   (if (heap-object? w)

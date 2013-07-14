@@ -1,9 +1,9 @@
 (library (emul vm core)
          (export
            values
-           receive
            define-syntax
            syntax-rules
+           _ ...
            define
            let
            receive
@@ -43,9 +43,10 @@
            f<=
            f>=
            err)
-         (import (except (rnrs) div div+mod if)
+         (import (except (rnrs) div if)
                  (srfi :8)
-                 (rename (rnrs) (if rnrs-if))
+                 (rename (only (rnrs) if) (if rnrs-if))
+                 (emul vm private)
                  (emul vm arith)
                  (emul vm heap))
          

@@ -15,8 +15,7 @@
            i< i> i<= i>=
            f< f> f<= f>=)
          (import (rename (rnrs)
-                         (div rnrs-div)
-                         (div+mod rnrs-div+mod))
+                         (div rnrs-div))
                  (emul vm private)
                  (nmosh pffi interface))
 
@@ -30,8 +29,8 @@
          (xword e))))))
 
 (define (neg i) ;; Calc 2 complement
-  (let ((base (expt 2 (* 8 size-of-pointer)))
-        (p (mod (bitwise-not i) base)))
+  (let* ((base (expt 2 (* 8 size-of-pointer)))
+         (p (mod (bitwise-not i) base)))
     (- base 1 p)))
 
 (define (xword e) ;; Allow negative values

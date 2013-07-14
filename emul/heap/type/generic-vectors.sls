@@ -3,12 +3,12 @@
            gvector-length
            gvector-ref
            gvector-set!
-           make-gvector/default
+           make-gvector/undefined
            gvector-copy/1)
          (import (emul heap type booleans)
                  (emul heap tagwords)
                  (emul heap heapcommon)
-                 (emul heap fixnums)
+                 (emul heap type fixnums)
                  (emul vm core))
 
 (define (gvector-length vector)
@@ -17,8 +17,11 @@
   (heap-vector-read vector (fixnum-value k)))
 (define (gvector-set! vector k obj)
   (heap-vector-write! vector (fixnum-value k) obj))
-(define (make-gvector/default type k fill)
+(define (make-gvector/undefined type k)
   (let ((v (new-heap-vector type (fixnum-value k))))
     v))
+(define (gvector-copy/1 vector)
+  (heap-vector-copy vector)
+  )
 
 )

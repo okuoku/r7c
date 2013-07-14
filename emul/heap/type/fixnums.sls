@@ -6,6 +6,7 @@
            fx<?
            fx>?
            fx<=?
+           fx>=?
            fx=?
            fixnum-value
            fixnum)
@@ -22,11 +23,11 @@
 
 (define-syntax def
   (syntax-rules ()
-    ((_ nam (a b) conv body ...))
-    (define (nam x y)
-      (let ((a (fixnum-value x))
-            (b (fixnum-value y)))
-        (conv (let () body ...)))) ))
+    ((_ nam (a b) conv body ...)
+     (define (nam x y)
+       (let ((a (fixnum-value x))
+             (b (fixnum-value y)))
+         (conv (let () body ...)))))))
 
 (def fx+ (x y) fixnum (add x y))
 (def fx- (x y) fixnum (sub x y))

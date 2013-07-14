@@ -10,7 +10,7 @@
                  (emul heap type generic-vectors)
                  (emul heap tagwords)
                  (emul heap heapcommon)
-                 (emul heap fixnums)
+                 (emul heap type fixnums)
                  (emul vm core))
 
 (define (vector? obj)
@@ -31,7 +31,7 @@
   (require-vector vector)
   (gvector-set! vector k obj))
 (define (make-vector/undefined k)
-  (make-gvector (imm 2) k))
+  (make-gvector/undefined (imm 2) k))
 (define (vector-copy/1 vector)
   (require-vector vector)
   (heap-vector-copy vector))

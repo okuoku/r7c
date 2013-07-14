@@ -5,6 +5,8 @@
         (only (emul vm core) imm)
         (emul heap tagwords)
         (srfi :8)
+        (prefix (emul heap type fixnums) target-)
+        (emul helper bridge)
         )
 
 (define (try x)
@@ -31,7 +33,17 @@
 
 ;;; TESTS
 
+;; IMPORT/EXPORT
 (for-each (^e (test-equal e (try e))) test-basic)
 (test-equal test-basic (try test-basic))
+
+;; FIXNUM
+(def/out i+ target-fx+)
+(def/out i- target-fx-)
+(def/out i= target-fx=?)
+
+(test-equal (+ 1 2) (i+ 1 2))
+(test-equal (= 3 (+ 1 2)) (i= 3 (i+ 1 2)))
+(test-equal (- 1 2) (i- 1 2))
 
 (test-results)

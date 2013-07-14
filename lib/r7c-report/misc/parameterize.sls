@@ -10,8 +10,8 @@
 
 
 ;; FIXME: 
-(define <param-set!> (list "unique"))
-(define <param-convert> (list "unique"))
+(define <param-set!> (list '"unique"))
+(define <param-convert> (list '"unique"))
 
 ;; Took from 7.3 Derived expression types
 

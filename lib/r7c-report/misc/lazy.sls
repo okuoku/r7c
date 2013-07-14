@@ -10,12 +10,12 @@
 (define-syntax delay-force
   (syntax-rules ()
     ((delay-force expression)
-     (make-promise #f (lambda () expression)))))
+     (make-promise '#f (lambda () expression)))))
 
 (define-syntax delay
   (syntax-rules ()
     ((delay expression)
-     (delay-force (make-promise #t expression)))))
+     (delay-force (make-promise '#t expression)))))
 
 (define make-promise
   (lambda (done? proc)

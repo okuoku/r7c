@@ -13,7 +13,7 @@
     ((define-values () expr)
      (define dummy
        (call-with-values (lambda () expr)
-                         (lambda args #f))))
+                         (lambda args '#f))))
     ((define-values (var) expr)
      (define var expr))
     ((define-values (var0 var1 ... varn) expr)

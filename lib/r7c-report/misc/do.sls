@@ -14,7 +14,7 @@
           (lambda (var ...)
             (if test
               (begin
-                (if #f #f)
+                (if '#f '#f)
                 expr ...)
               (begin
                 command

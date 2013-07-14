@@ -22,6 +22,7 @@
 (def/out cdr target-cdr)
 (def/out set-car! target-set-car!)
 (def/out set-cdr! target-set-cdr!)
+(def/out null? target-null?)
 
 (define (caar pair) (target-car (target-car pair)))
 (define (cadr pair) (target-car (target-cdr pair)))

@@ -10,11 +10,11 @@
                  (emul heap heapcommon)
                  (emul vm core))
 
-(define (unspecified? obj)
+(define (undefined? obj)
   (boolean (if (zone0? obj)
              (eq (imm 5) (zone0-value obj))
              (imm 0))))
-(define (unspecified)
+(define (undefined)
   (zone0-word (imm 5))) 
 (define (unspecified? obj)
   (boolean (if (zone0? obj)

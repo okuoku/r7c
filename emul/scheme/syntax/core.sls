@@ -1,11 +1,17 @@
 (library (emul scheme syntax core)
          (export 
+           else
+           =>
+           let-syntax
+           letrec-syntax
            syntax-rules _ ...
+           lambda
            define
            let/core
            if
            begin
            quote
+           set!
            )
          (import 
            (emul heap type specials)
@@ -17,6 +23,10 @@
                    if)
            ;; FIXME: how do we handle them?
            (only (rnrs)
+                 else
+                 =>
+                 set!
+                 begin
                  let-syntax
                  letrec-syntax)
            (prefix (only (rnrs) 

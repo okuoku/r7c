@@ -37,11 +37,11 @@
 
 (define-syntax let*-values
   (syntax-rules ()
-    ((let*-values () body0
+    ((let*-values () body0 body1 ...) 
      (let/core () body0 body1 ...))
     ((let*-values (binding0 binding1 ...)
          body0 body1 ...)
      (let-values (binding0)
        (let*-values (binding1 ...)
-         body0 body1 ...))))))
+         body0 body1 ...)))))
 )

@@ -11,7 +11,7 @@
            set!
 
            ;; AUX keywords
-           else => ...
+           else => ... _
 
            ;; 
            begin
@@ -28,6 +28,6 @@
            ;; Binding constructs
            let/core
            )
-         (import (except (emul vm core) if)
+         (import (except (emul vm core) define if)
                  (emul scheme syntax core))
 )

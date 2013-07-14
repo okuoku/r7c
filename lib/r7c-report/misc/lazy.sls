@@ -1,8 +1,9 @@
 (library (r7c-report misc lazy)
          (export delay-force make-promise delay force promise?)
          (import (r7c-impl syntax core)
-                 (r7c-impl syntax pairs)
-                 (r7c-impl syntax unless)
+                 (r7c-impl runtime pairs)
+                 (r7c-impl runtime lists)
+                 (r7c-report conditional unless)
                  )
 
 ;; Took from 7.3 Derived expression types

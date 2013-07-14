@@ -5,6 +5,7 @@
            quote
 
            ;;
+           define
            lambda
 
            ;; 

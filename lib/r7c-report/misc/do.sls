@@ -1,7 +1,7 @@
 (library (r7c-report misc do)
          (export do)
          (import (r7c-impl syntax core)
-                 (r7c-impl syntax letrec))
+                 (r7c-report binding-construct letrec))
 
 ;; Took from 7.3 Derived expression types
 (define-syntax do

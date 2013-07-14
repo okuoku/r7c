@@ -14,6 +14,7 @@
            set!
            )
          (import 
+           (emul heap type booleans)
            (emul heap type specials)
            (emul helper export)
            (emul helper bridge)
@@ -57,7 +58,7 @@
 (define-syntax if
   (syntax-rules ()
     ((_ e a)
-     (if e a (unspeficied)))
+     (if e a (unspecified)))
     ((_ e a b)
      (%if e a b))))
 

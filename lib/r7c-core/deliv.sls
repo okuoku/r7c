@@ -13,6 +13,7 @@
            cond
            unless
            when
+           do
            )
          (import (r7c-report binding-construct let)
                  (r7c-report binding-construct letrec)
@@ -23,5 +24,6 @@
                  (r7c-report conditional cond)
                  (r7c-report conditional unless)
                  (r7c-report conditional when)
+                 (r7c-report misc do)
                  )
          )

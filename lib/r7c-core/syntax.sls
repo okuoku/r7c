@@ -1,6 +1,7 @@
 ;; Core syntax, which should have same semantics on R7RS
 (library (r7c-core syntax)
          (export quote lambda set!
+                 define
                  else => ...
                  _
                  begin

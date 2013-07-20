@@ -27,6 +27,7 @@
          b)))))
 
 (define (import target-sexp)
+  (write (list 'import: target-sexp))(newline)
   (cond
     ((%b target-boolean? target-sexp)
      (target-%if target-sexp
@@ -57,6 +58,7 @@
                            target-sexp))))
 
 (define (export sexp)
+  (write (list 'export: sexp))(newline)
   (cond
     ((boolean? sexp)
      (if sexp

@@ -50,7 +50,11 @@
                  (emul vm arith)
                  (emul vm heap))
          
-(define (imm x) (word x)) 
+(define (imm x) 
+  (write (list 'imm: x))(newline)
+  (rnrs-if (flonum? x)
+           (fword x)
+           (word x))) 
 
 (define (bool x)
   (not (= 0 x)))
@@ -58,7 +62,13 @@
 (define-syntax if
   (syntax-rules ()
     ((_ q a b)
-     (rnrs-if (bool (unword q)) a b))))
+     (begin
+       (unless (word? q)
+         (assertion-violation
+           'vm
+           "Target bool required here"
+           q))
+       (rnrs-if (bool (unword q)) a b)))))
 
 (define-syntax err
   (syntax-rules ()

@@ -4,7 +4,10 @@ Emulated VM
 Internal (emul vm private)
 --------------------------
  (word SCHEME-OBJECT) => word
- (unword word) => integer/flonum
+ (fword flonum) => word
+ (unword word) => integer (sign extended)
+ (uunword word) => integer 
+ (funword word) => flonum
 
 Constructs (emul vm core)
 -------------------------
@@ -15,7 +18,7 @@ Constructs (emul vm core)
  receive ::: Receive syntax in srfi-8
  values
  if
- (imm SCHEME-VALUE) => word ::: same as word
+ (imm SCHEME-VALUE) => word ::: fword/word
 
 Heap management (emul vm heap)
 ------------------------------
@@ -61,6 +64,10 @@ NB: Always unsigned
  (i> word word) => bool
  (i<= word word) => bool
  (i>= word word) => bool
+ (u< word word) => bool
+ (u> word word) => bool
+ (u<= word word) => bool
+ (u>= word word) => bool
  (f< word word) => bool
  (f> word word) => bool
  (f<= word word) => bool

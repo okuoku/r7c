@@ -1,7 +1,52 @@
 (library (emul vm private)
-         (export word unword)
+         (export 
+           word?
+           fword
+           funword
+           word 
+           uunword
+           unword)
          (import (rnrs)
+                 (nmosh ffi box)
                  (nmosh pffi interface))
+
+(define (word? x) (pointer? x))
+
+(define (flonum->f32 x)
+  (let ((bv (make-bytevector 4)))
+    (bytevector-ieee-single-native-set! bv 0 x)
+    bv) )
+
+(define (f32->flonum bv)
+  (bytevector-ieee-single-native-ref bv 0))
+
+(define (flonum->f64 x)
+  (let ((bv (make-bytevector 8)))
+    (bytevector-ieee-single-native-set! bv 0 x)
+    bv))
+
+(define (f64->flonum bv)
+  (bytevector-ieee-single-native-ref bv 0))
+
+(define (bv->ptrval bv)
+  (ptr-box-ref bv))
+(define (ptrval->bv p)
+  (let ((b (make-ptr-box)))
+    (ptr-box-set! b p)))
+
+(define (fword x)
+  (case size-of-pointer
+    ((4)
+     (bv->ptrval (flonum->f32 x)))
+    (else
+      (bv->ptrval (flonum->f64 x)))))
+
+(define (funword x)
+  (case size-of-pointer
+    ((4)
+     (f32->flonum (ptrval->bv x)))
+    (else
+      (f64->flonum (ptrval->bv x)))))
 
 (define (word x)
   (cond
@@ -11,8 +56,6 @@
        (word 0)))
     ((integer? x)
      (integer->pointer x))
-    ((flonum? x)
-     x)
     ((pointer? x)
      x)
     (else
@@ -30,11 +73,12 @@
     (bitwise-ior mask i)))
 
 (define (unword x)
+  (sign-extend (uunword x)))
+
+(define (uunword x)
   (cond
     ((pointer? x) 
-     (sign-extend
-       (pointer->integer x)))
-    ((flonum? x) x)
+     (pointer->integer x))
     (else
       (assertion-violation
         'unword

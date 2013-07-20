@@ -19,6 +19,28 @@
                  (emul vm private)
                  (nmosh pffi interface))
 
+(define-syntax deff
+  (syntax-rules ()
+    ((_ nam (v ...) code ...)
+     (define (nam v ...)
+       (set! v (funword v))
+       ...
+       (let ((e (let () code ...)))
+         ;(write (list 'nam v ... '=> e))
+         ;(newline)
+         (fword e))))))
+
+(define-syntax defu
+  (syntax-rules ()
+    ((_ nam (v ...) code ...)
+     (define (nam v ...)
+       (set! v (uunword v))
+       ...
+       (let ((e (let () code ...)))
+         ;(write (list 'nam v ... '=> e))
+         ;(newline)
+         (xword e))))))
+
 (define-syntax def
   (syntax-rules ()
     ((_ nam (v ...) code ...)
@@ -71,18 +93,22 @@
 (def u<< (x y) (bitwise-arithmetic-shift-left x y))
 (def u>> (x y) (bitwise-arithmetic-shift-right x y))
 
-(def fadd (x y) (+ x y))
-(def fsub (x y) (- x y))
-(def fmul (x y) (* x y))
-(def fdiv (x y) (inexact (/ x y)))
+(deff fadd (x y) (+ x y))
+(deff fsub (x y) (- x y))
+(deff fmul (x y) (* x y))
+(deff fdiv (x y) (inexact (/ x y)))
 (def eq (x y) (eq? x y))
-(def i< (x y) (< x y))
+(def i< (x y) (< x y)) ;; FIXME: Should be s<....
 (def i> (x y) (> x y))
 (def i<= (x y) (<= x y))
 (def i>= (x y) (>= x y))
-(def f< (x y) (< x y))
-(def f> (x y) (> x y))
-(def f<= (x y) (<= x y))
-(def f>= (x y) (>= x y))
+(defu u< (x y) (< x y))
+(defu u> (x y) (> x y))
+(defu u<= (x y) (<= x y))
+(defu u>= (x y) (>= x y))
+(deff f< (x y) (< x y))
+(deff f> (x y) (> x y))
+(deff f<= (x y) (<= x y))
+(deff f>= (x y) (>= x y))
 
 )

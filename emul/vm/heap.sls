@@ -1,5 +1,6 @@
 (library (emul vm heap)
          (export
+           cell-intern0 ;; FIXME: Remove this
            cell-copy
            cell-u8-read
            cell-u8-write!
@@ -13,6 +14,41 @@
                  (srfi :42)
                  (emul vm private)
                  (nmosh pffi interface))
+
+;;;
+;;; TENTATIVE symbol support
+;;;
+
+
+(define (chash c)
+  (fold-left (lambda (h p)
+                    (let ((e (pointer->integer p)))
+                      (mod (+ e (* h 127)) 999999)))
+             0
+             (vector->list c)))
+
+(define (ceqv c d)
+  (for-all
+    (lambda (e f)
+      (= (pointer->integer e)
+         (pointer->integer f)))
+    (vector->list c)
+    (vector->list d)))
+
+(define symbol-ht (make-hashtable chash ceqv))
+
+(define (cell-intern0 x) ;; => pointer(word)
+  (let* ((c (uncell x))
+         (r (hashtable-ref symbol-ht c #f)))
+    (if r
+      r
+      (begin
+        (hashtable-set! symbol-ht c x)
+        x))))
+
+;;;
+;;;
+;;;
 
 (define (cell x)
   (define size (unword x))

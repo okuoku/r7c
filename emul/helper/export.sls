@@ -9,6 +9,7 @@
                  (prefix (emul heap type fixnums) target-) 
                  (prefix (emul heap type pairs) target-) 
                  (prefix (emul heap type strings) target-) 
+                 (prefix (emul heap type symbols) target-) 
                  (prefix (emul heap type vectors) target-) )
          
         
@@ -27,7 +28,7 @@
          b)))))
 
 (define (import target-sexp)
-  (write (list 'import: target-sexp))(newline)
+  ;(write (list 'import: target-sexp))(newline)
   (cond
     ((%b target-boolean? target-sexp)
      (target-%if target-sexp
@@ -48,6 +49,8 @@
        (do-ec (: i (import (target-string-length target-sexp)))
               (put-char p (import (target-string-ref target-sexp (export i)))))
        (proc)))
+    ((%b target-symbol? target-sexp)
+     (string->symbol (import (target-symbol->string target-sexp))))
     ((%b target-vector? target-sexp)
      (list->vector (list-ec (: i (import (target-vector-length target-sexp)))
                             (import 
@@ -58,7 +61,7 @@
                            target-sexp))))
 
 (define (export sexp)
-  (write (list 'export: sexp))(newline)
+  ;(write (list 'export: sexp))(newline)
   (cond
     ((boolean? sexp)
      (if sexp
@@ -80,6 +83,8 @@
               (let ((c (string-ref sexp i)))
                 (target-string-set! nex (export i) (export c)) ))
        nex))
+    ((symbol? sexp)
+     (target-string->symbol (export (symbol->string sexp))))
     ((vector? sexp)
      (let* ((len (vector-length sexp))
             (nex (target-make-vector/undefined (export len))))

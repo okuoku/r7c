@@ -9,6 +9,7 @@
            receive
            if
            imm
+           cell-intern0
            cell-wordsize
            cell
            cell-read
@@ -51,7 +52,7 @@
                  (emul vm heap))
          
 (define (imm x) 
-  (write (list 'imm: x))(newline)
+  ;(write (list 'imm: x))(newline)
   (rnrs-if (flonum? x)
            (fword x)
            (word x))) 

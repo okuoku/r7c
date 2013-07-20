@@ -1,5 +1,6 @@
 (library (emul heap heapcommon)
          (export
+           new-heap-vector/cell
            new-heap-vector
            ;new-heap-buffer
            heap-vector-type?

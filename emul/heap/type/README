@@ -101,9 +101,10 @@ Base types
  R7RS:
   (symbol? obj)
   (symbol->string symbol)
+  (string->symbol string)
+
  CORE:
   (symbol=?/2 symbol1 symbol2)
-  (string->symbol/uninterned string)
 
 
  Bytevectors "6.9. Bytevectors"

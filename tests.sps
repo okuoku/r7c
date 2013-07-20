@@ -20,6 +20,7 @@
 (define test-basic '(#\a 0 "a1bc" 123 0 1 
                      0 1 2 3 4 5 6 7 8 9 10 11 12
                      0 -1 -2 -3 -4 -5 -6 -7 -8 -9 -10
+                     a b c
                      -11 -12 -123 -1024
                      () #t #f #\C #\a (1 . 2) #() #("a" 1)))
 
@@ -30,6 +31,8 @@
 (receive (T V) (pvector-values w)
   (write (list 'w: w '=> 'T: T 'V: V))(newline))
 |#
+
+(for-each (^e (try e)) test-basic)
 
 ;;; TESTS
 
